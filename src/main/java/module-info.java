@@ -2,6 +2,7 @@ module org.wifijava.mailproject {
     requires javafx.controls;
     requires javafx.fxml;
     requires jakarta.mail;
+    requires static lombok;
 
 
     opens org.wifijava.mailproject to javafx.fxml;
