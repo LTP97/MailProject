@@ -1,3 +1,5 @@
+Work in progress
+
 Simple Mail
 
 Basic Mail application with javafx
