@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox prefHeight="541.0" prefWidth="537.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="541.0" prefWidth="537.0" spacing="10"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
     <!-- To Section -->
     <Label text="To:"/>
     <VBox fx:id="toFieldContainer" spacing="5">

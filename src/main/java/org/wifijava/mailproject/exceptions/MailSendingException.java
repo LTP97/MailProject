@@ -1,6 +1,6 @@
 package org.wifijava.mailproject.exceptions;
 
-public class MailSendingException extends Exception{
+public class MailSendingException extends Exception {
     public MailSendingException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -4,6 +4,8 @@ import java.util.Properties;
 
 public interface MailProvider {
     Properties getSmtpProperties();
+
     Properties getImapProperties();
+
     String getInboxName();
 }

@@ -3,8 +3,14 @@ module org.wifijava.mailproject {
     requires javafx.fxml;
     requires jakarta.mail;
     requires static lombok;
+    requires java.sql;
+    requires jakarta.persistence;
+    requires mysql.connector.j;
+    requires org.hibernate.orm.core;
+    requires java.naming;
 
-
+    exports org.wifijava.mailproject.persistence.entity;
+    opens org.wifijava.mailproject.persistence.entity to org.hibernate.orm.core;
     opens org.wifijava.mailproject to javafx.fxml;
     exports org.wifijava.mailproject;
     exports org.wifijava.mailproject.constants;

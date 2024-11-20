@@ -77,9 +77,8 @@ public class MessageService {
             message.setText(messageContent.body());
 
             return message;
-        }
-        catch(MessagingException e){
-            throw new MessagingException(Constants.BUILD_MESSAGE_ERROR,e);
+        } catch (MessagingException e) {
+            throw new MessagingException(Constants.BUILD_MESSAGE_ERROR, e);
         }
     }
 }

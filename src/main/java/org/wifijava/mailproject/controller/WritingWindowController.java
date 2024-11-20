@@ -1,8 +1,6 @@
 package org.wifijava.mailproject.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -63,7 +61,7 @@ public class WritingWindowController {
         try {
             HelperService.sendMailOut(messageContent);
         } catch (MailSendingException e) {
-            showErrorDialog(e.getMessage());
+            AlertService.showErrorDialog(e.getMessage());
         }
 
 
@@ -103,17 +101,6 @@ public class WritingWindowController {
 
         recipientBox.getChildren().addAll(recipientField, removeButton);
         return recipientBox;
-    }
-
-    private void showErrorDialog(String message) {
-        System.out.println("Error Dialog Triggered: " + message);
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("An error occured");
-            alert.setContentText(message);
-            alert.showAndWait();
-        });
     }
 }
 

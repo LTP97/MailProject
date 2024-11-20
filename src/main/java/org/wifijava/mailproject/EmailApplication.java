@@ -5,32 +5,46 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.wifijava.mailproject.constants.Constants;
-import org.wifijava.mailproject.constants.TestConstants;
-import org.wifijava.mailproject.data.MailAccount;
-import org.wifijava.mailproject.io.provider.GmxProvider;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.wifijava.mailproject.logic.AppData;
+import org.wifijava.mailproject.logic.AppStartupService;
+import org.wifijava.mailproject.persistence.entity.User;
 
 import java.io.IOException;
 
 public class EmailApplication extends Application {
 
+    public static void main(String[] args) {
+        SessionFactory sessionFactory = AppData.getInstance().getSessionFactory();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+
+            User user = new User();
+            user.setPassword("test123");
+            user.setMailAdress("test@mail.com");
+            session.persist(user);
+
+            session.getTransaction().commit();
+            System.out.println("Saved successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
+        AppStartupService.prepApplication();
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/wifijava/mailproject/fxml/WritingWindow.fxml"));
 
         Parent root = fxmlLoader.load();
 
-        AppData.getInstance().setCurrentAccount(new MailAccount(TestConstants.TESTMAIL,new GmxProvider(),TestConstants.TESTPASSWORD));
-
-        Scene scene = new Scene(root,800,600);
+        Scene scene = new Scene(root, 800, 600);
         stage.setTitle("Writing Mail window test");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-
     }
 }
