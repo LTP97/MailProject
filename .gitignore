@@ -5,6 +5,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+src/main/java/org/wifijava/mailproject/constants/TestConstants.java
+
 ### IntelliJ IDEA ###
 .idea/*
 .idea/modules.xml

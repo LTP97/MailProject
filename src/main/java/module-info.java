@@ -15,4 +15,6 @@ module org.wifijava.mailproject {
     opens org.wifijava.mailproject.io to javafx.fxml;
     exports org.wifijava.mailproject.io.provider;
     opens org.wifijava.mailproject.io.provider to javafx.fxml;
+    exports org.wifijava.mailproject.controller;
+    opens org.wifijava.mailproject.controller to javafx.fxml;
 }
