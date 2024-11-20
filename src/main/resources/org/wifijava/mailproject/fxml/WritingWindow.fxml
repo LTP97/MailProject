@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox prefHeight="541.0" prefWidth="537.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
+<VBox prefHeight="541.0" prefWidth="537.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
     <!-- To Section -->
-    <Label text="To:" />
+    <Label text="To:"/>
     <VBox fx:id="toFieldContainer" spacing="5">
         <HBox spacing="5">
-            <TextField promptText="Enter recipient email" />
-            <Button onAction="#handleAddRecipient" text="+" />
+            <TextField promptText="Enter recipient email"/>
+            <Button onAction="#handleAddRecipient" text="+"/>
         </HBox>
     </VBox>
 
     <!-- CC Section -->
-    <Label text="CC:" />
+    <Label text="CC:"/>
     <VBox fx:id="ccFieldContainer" spacing="5">
         <HBox spacing="5">
-            <TextField promptText="Enter CC email" />
-            <Button onAction="#handleAddCC" text="+" />
+            <TextField promptText="Enter CC email"/>
+            <Button onAction="#handleAddCC" text="+"/>
         </HBox>
     </VBox>
 
     <!-- BCC Section -->
-    <Label text="BCC:" />
+    <Label text="BCC:"/>
     <VBox fx:id="bccFieldContainer" spacing="5">
         <HBox spacing="5">
-            <TextField promptText="Enter BCC email" />
-            <Button onAction="#handleAddBCC" text="+" />
+            <TextField promptText="Enter BCC email"/>
+            <Button onAction="#handleAddBCC" text="+"/>
         </HBox>
     </VBox>
 
     <!-- Subject -->
-    <Label text="Subject:" />
-    <TextField fx:id="subjectField" promptText="Enter subject" />
+    <Label text="Subject:"/>
+    <TextField fx:id="subjectField" promptText="Enter subject"/>
 
     <!-- Body -->
-    <Label text="Textbody:" />
-    <TextArea fx:id="bodyArea" promptText="Enter mail body" wrapText="true" />
+    <Label text="Textbody:"/>
+    <TextArea fx:id="bodyArea" promptText="Enter mail body" wrapText="true"/>
 
     <!-- Send Button -->
-    <Button onAction="#handleSendButtonPress" text="Send" />
-   <opaqueInsets>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
+    <Button onAction="#handleSendButtonPress" text="Send"/>
+    <opaqueInsets>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </opaqueInsets>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
 </VBox>

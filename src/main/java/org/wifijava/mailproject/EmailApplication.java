@@ -32,20 +32,5 @@ public class EmailApplication extends Application {
     public static void main(String[] args) {
         launch(args);
 
-////        MessageContent messageContent = new MessageContent(new String[0],"Test1","test1","testaccountlukas@gmx.at", Message.RecipientType.TO);
-////        try {
-////            mailService.sendMail(test1,messageContent);
-////        } catch (MessagingException e) {
-////            e.printStackTrace();
-////        }
-//        try {
-//            Message[] messages = MailIO.recieveMail(test1);
-//            for(Message message : messages){
-//                System.out.println("Subject: " + message.getSubject());
-//                System.out.println("From: " + message.getFrom()[0]);
-//            }
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

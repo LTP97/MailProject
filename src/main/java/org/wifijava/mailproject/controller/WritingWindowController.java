@@ -67,7 +67,6 @@ public class WritingWindowController {
         }
 
 
-        // Debugging output
         System.out.println("Sending email to: " + String.join(", ", toRecipients));
         System.out.println("CC: " + String.join(", ", ccRecipients));
         System.out.println("BCC: " + String.join(", ", bccRecipients));
@@ -75,30 +74,27 @@ public class WritingWindowController {
         System.out.println("Body: " + body);
     }
 
-    // Method to handle adding a new "To" recipient
     @FXML
     private void handleAddRecipient() {
         HBox newRecipientBox = createRecipientField(toFieldContainer);
         toFieldContainer.getChildren().add(newRecipientBox);
     }
 
-    // Method to handle adding a new "CC" recipient
     @FXML
     private void handleAddCC() {
         HBox newCCBox = createRecipientField(ccFieldContainer);
         ccFieldContainer.getChildren().add(newCCBox);
     }
 
-    // Method to handle adding a new "BCC" recipient
     @FXML
     private void handleAddBCC() {
         HBox newBCCBox = createRecipientField(bccFieldContainer);
         bccFieldContainer.getChildren().add(newBCCBox);
     }
 
-    // Helper method to create a new HBox with a TextField and a remove button
+
     private HBox createRecipientField(VBox container) {
-        HBox recipientBox = new HBox(5); // 5 is the spacing between elements
+        HBox recipientBox = new HBox(5);
         TextField recipientField = new TextField();
         recipientField.setPromptText("Enter email");
 
@@ -122,31 +118,3 @@ public class WritingWindowController {
 }
 
 
-//    @FXML
-//    private TextField toField;
-//    @FXML
-//    private TextField subjectField;
-//    @FXML
-//    private TextArea bodyArea;
-//
-//
-//
-//    @FXML
-//    private void handleSendButtonPress() {
-//        String recipient = toField.getText();
-//        String subject = subjectField.getText();
-//        String body = bodyArea.getText();
-//
-//        MessageContent messageContent = new MessageContent(new String[0],subject,body,recipient, Message.RecipientType.TO);
-//        try {
-//            MailIO.sendMail(AppData.getInstance().getCurrentAccount(), messageContent);
-//        } catch (MessagingException e) {
-//            bodyArea.setText("COULD NOT SEND MESSAGE - try again");
-//        }
-//
-//
-//        System.out.println("Sending email to: " + recipient);
-//        System.out.println("Subject: " + subject);
-//        System.out.println("Body: " + body);
-//    }
-//}

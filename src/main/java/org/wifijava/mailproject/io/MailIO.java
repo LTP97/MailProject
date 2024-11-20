@@ -1,15 +1,9 @@
 package org.wifijava.mailproject.io;
 
 import jakarta.mail.*;
-import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.data.MailAccount;
-import org.wifijava.mailproject.data.MessageContent;
-import org.wifijava.mailproject.logic.AppData;
 
-import java.util.Arrays;
 import java.util.Properties;
 
 
@@ -19,9 +13,8 @@ public class MailIO {
         try {
             Transport.send(message);
             System.out.println("Message(s) sent");
-        }
-        catch(MessagingException e){
-            throw new MessagingException(Constants.SEND_MESSAGE_ERROR,e);
+        } catch (MessagingException e) {
+            throw new MessagingException(Constants.SEND_MESSAGE_ERROR, e);
         }
     }
 
