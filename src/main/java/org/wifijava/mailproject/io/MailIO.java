@@ -21,8 +21,8 @@ public class MailIO {
     public static Message[] recieveMail(MailAccount mailAccount) throws MessagingException {
         Properties properties = mailAccount.getMailProvider().getImapProperties();
         Session session = Session.getDefaultInstance(properties, null);
-        Store store = session.getStore("imap");
-        String host = properties.getProperty("mail.imap.host");
+        Store store = session.getStore(Constants.STORE_PROTOCOL);
+        String host = properties.getProperty(Constants.HOST_TYPE);
 
         store.connect(host, mailAccount.getMailAddress(), mailAccount.getPassword());
 

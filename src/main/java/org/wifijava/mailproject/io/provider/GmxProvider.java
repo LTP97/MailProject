@@ -18,10 +18,10 @@ public class GmxProvider implements MailProvider {
     @Override
     public Properties getImapProperties() {
         Properties properties = new Properties();
-        properties.put("mail.store.protocol", "imap"); // Use IMAP over SSL
-        properties.put("mail.imap.host", "imap.gmx.com"); // GMX IMAP server
-        properties.put("mail.imap.port", "993"); // GMX IMAP SSL port
-        properties.put("mail.imap.ssl.enable", "true"); // Enable SSL
+        properties.put("mail.store.protocol", "imap");
+        properties.put("mail.imap.host", "imap.gmx.com");
+        properties.put("mail.imap.port", "993");
+        properties.put("mail.imap.ssl.enable", "true");
         return properties;
     }
 

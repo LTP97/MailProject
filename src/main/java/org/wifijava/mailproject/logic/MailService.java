@@ -3,16 +3,17 @@ package org.wifijava.mailproject.logic;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import org.wifijava.mailproject.constants.Constants;
+import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.data.MessageContent;
 import org.wifijava.mailproject.exceptions.MailSendingException;
 import org.wifijava.mailproject.io.MailIO;
 
-public class HelperService {
+public class MailService {
 
 
-    public static void sendMailOut(MessageContent messageContent) throws MailSendingException {
+    public void buildAndSendMail(MessageContent messageContent, MailAccount currentAccount) throws MailSendingException {
         try {
-            Message message = MessageService.buildMessage(messageContent);
+            Message message = MessageFactory.buildMessage(messageContent,currentAccount);
             MailIO.sendMail(message);
 
         } catch (MessagingException e) {

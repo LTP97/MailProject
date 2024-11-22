@@ -6,9 +6,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.data.MessageContent;
 import org.wifijava.mailproject.exceptions.MailSendingException;
-import org.wifijava.mailproject.logic.HelperService;
+import org.wifijava.mailproject.logic.AppData;
+import org.wifijava.mailproject.logic.MailService;
 
 
 public class WritingWindowController {
@@ -24,47 +26,28 @@ public class WritingWindowController {
     private TextArea bodyArea;
 
 
+
     @FXML
     private void handleSendButtonPress() {
+        MailService mailService = new MailService();
         String subject = subjectField.getText();
         String body = bodyArea.getText();
-
-        String[] toRecipients = toFieldContainer.getChildren().stream()
-                .filter(node -> node instanceof HBox)
-                .flatMap(node -> ((HBox) node).getChildren().stream())
-                .filter(innerNode -> innerNode instanceof TextField)
-                .map(innerNode -> ((TextField) innerNode).getText())
-                .filter(email -> email != null && !email.trim().isEmpty())
-                .toArray(String[]::new);
-
-        String[] ccRecipients = ccFieldContainer.getChildren().stream()
-                .filter(node -> node instanceof HBox)
-                .flatMap(node -> ((HBox) node).getChildren().stream())
-                .filter(innerNode -> innerNode instanceof TextField)
-                .map(innerNode -> ((TextField) innerNode).getText())
-                .filter(email -> email != null && !email.trim().isEmpty())
-                .toArray(String[]::new);
-
-        String[] bccRecipients = bccFieldContainer.getChildren().stream()
-                .filter(node -> node instanceof HBox)
-                .flatMap(node -> ((HBox) node).getChildren().stream())
-                .filter(innerNode -> innerNode instanceof TextField)
-                .map(innerNode -> ((TextField) innerNode).getText())
-                .filter(email -> email != null && !email.trim().isEmpty())
-                .toArray(String[]::new);
-
+        String[] toRecipients = getRecipients(toFieldContainer);
+        String[] ccRecipients = getRecipients(ccFieldContainer);
+        String[] bccRecipients = getRecipients(bccFieldContainer);
         MessageContent messageContent = new MessageContent(
                 new String[0], subject, body, toRecipients, ccRecipients, bccRecipients
         );
 
-
         try {
-            HelperService.sendMailOut(messageContent);
+            MailAccount currentAccount = AppData.getInstance().getCurrentAccount();
+            mailService.buildAndSendMail(messageContent,currentAccount);
         } catch (MailSendingException e) {
-            AlertService.showErrorDialog(e.getMessage());
+            AlertService alertService = new AlertService();
+            alertService.showErrorDialog(e.getMessage());
         }
 
-
+        //todo remove debugging output
         System.out.println("Sending email to: " + String.join(", ", toRecipients));
         System.out.println("CC: " + String.join(", ", ccRecipients));
         System.out.println("BCC: " + String.join(", ", bccRecipients));
@@ -90,6 +73,15 @@ public class WritingWindowController {
         bccFieldContainer.getChildren().add(newBCCBox);
     }
 
+    private String[] getRecipients(VBox container){
+        return container.getChildren().stream()
+                .filter(node -> node instanceof HBox)
+                .flatMap(node -> ((HBox) node).getChildren().stream())
+                .filter(innerNode -> innerNode instanceof TextField)
+                .map(innerNode -> ((TextField) innerNode).getText())
+                .filter(email -> email != null && !email.trim().isEmpty())
+                .toArray(String[]::new);
+    }
 
     private HBox createRecipientField(VBox container) {
         HBox recipientBox = new HBox(5);

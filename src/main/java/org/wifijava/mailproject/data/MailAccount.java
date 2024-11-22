@@ -2,16 +2,13 @@ package org.wifijava.mailproject.data;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.wifijava.mailproject.io.provider.MailProvider;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class MailAccount {
     private final String mailAddress;
     private final MailProvider mailProvider;
-
-    @Setter
     private String password;
 }

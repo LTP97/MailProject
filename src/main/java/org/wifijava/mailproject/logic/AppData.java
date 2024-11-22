@@ -1,7 +1,6 @@
 package org.wifijava.mailproject.logic;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.SessionFactory;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.constants.TestConstants;
@@ -11,8 +10,7 @@ import org.wifijava.mailproject.io.provider.GmxProvider;
 import org.wifijava.mailproject.persistence.util.HibernateUtil;
 
 
-@Setter
-@Getter
+@Data
 public class AppData {
     private static AppData instance;
 
@@ -22,9 +20,11 @@ public class AppData {
     private AppData() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
         if (sessionFactory == null) {
-            AlertService.showErrorDialog(Constants.UNKNOWN_ERROR);
+            AlertService alertService = new AlertService();
+            alertService.showErrorDialog(Constants.UNKNOWN_ERROR);
             System.exit(1);
         }
+
         //todo: get saved account(s) from database or open login window before starting application
         this.currentAccount = new MailAccount(TestConstants.TESTMAIL, new GmxProvider(), TestConstants.TESTPASSWORD);
     }

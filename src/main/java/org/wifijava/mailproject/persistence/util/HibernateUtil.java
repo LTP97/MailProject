@@ -7,19 +7,20 @@ import org.hibernate.cfg.Configuration;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.controller.AlertService;
 import org.wifijava.mailproject.data.DBConnection;
-import org.wifijava.mailproject.persistence.repository.ConfigService;
+import org.wifijava.mailproject.logic.storage.DBConnectionFactory;
 
 public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         SessionFactory sessionFactory;
-        DBConnection dbConnection = ConfigService.getDBConnection();
+        DBConnection dbConnection = DBConnectionFactory.getDBConnectionFromConfigFile();
         Configuration configuration = new Configuration();
 
         try {
             configuration.configure("hibernate.cfg.xml");
         } catch (HibernateException e) {
-            AlertService.showErrorDialog(Constants.DB_CONFIG_FILE_ERROR);
+            AlertService alertService = new AlertService();
+            alertService.showErrorDialog(Constants.DB_CONFIG_FILE_ERROR);
             System.exit(1);
         }
 
@@ -27,17 +28,19 @@ public class HibernateUtil {
         configuration.setProperty("hibernate.connection.username", dbConnection.username());
         configuration.setProperty("hibernate.connection.password", dbConnection.password());
 
+        //todo: change error codes to correct number
         try {
             sessionFactory = configuration.buildSessionFactory();
             return sessionFactory;
         } catch (HibernateException e) {
             e.printStackTrace();
+            AlertService alertService = new AlertService();
             if(e.getMessage().contains("Unknown database")){
-                AlertService.showErrorDialog(Constants.DB_NOT_CREATED);
+                alertService.showErrorDialog(Constants.DB_NOT_CREATED);
                 System.exit(1337);
             }
             else {
-                AlertService.showErrorDialog(Constants.DB_CONNECTION_ERROR);
+                alertService.showErrorDialog(Constants.DB_CONNECTION_ERROR);
                 System.exit(1337);
             }
         }
