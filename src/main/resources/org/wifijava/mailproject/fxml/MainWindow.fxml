@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="643.0" prefWidth="886.0" spacing="10" style="-fx-background-color: D4E09B;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.MainWindowController">
+
+    <!-- Account display and Settings button -->
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="accountDisplay" text="Current Account: user@example.com" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleRefreshButton" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../../icons/refresh_icon.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button onAction="#handleSettingsButton" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../../icons/gear_icon.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+
+    </HBox>
+
+    <!-- Main content section -->
+    <HBox prefHeight="539.0" prefWidth="876.0" spacing="10">
+
+        <!-- Directory section on the left -->
+        <VBox prefWidth="200.0" spacing="10">
+            <Label text="Folders" />
+            <ListView fx:id="directoryList" prefHeight="524.0" prefWidth="185.0" />
+        </VBox>
+
+        <!-- Email list section on the middle -->
+        <VBox prefWidth="100.0" spacing="10">
+            <Label text="Inbox" />
+            <ListView fx:id="emailList" onMouseClicked="#handleEmailSelection" prefHeight="522.0" prefWidth="85.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Email 1" />
+                        <String fx:value="Email 2" />
+                    </FXCollections>
+                </items>
+            </ListView>
+        </VBox>
+
+        <!-- Email content display on the right -->
+        <VBox prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="21.0" prefWidth="582.0">
+                <Label text="Message">
+                    <padding>
+                        <Insets right="10.0" />
+                    </padding>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <ButtonBar prefHeight="25.0" prefWidth="404.0">
+                    <buttons>
+                        <Button fx:id="attachmentButton" mnemonicParsing="false" onAction="#handleAttachmentButtonPress" prefHeight="25.0" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="View Attachment(s)" />
+                        <Button mnemonicParsing="false" onAction="#handleAnswerButtonPress" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="Answer" />
+                        <Button mnemonicParsing="false" onAction="#handleForwardButtonPress" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="Forward" />
+                    </buttons>
+                </ButtonBar>
+            </HBox>
+            <TextArea fx:id="emailContent" editable="false" prefHeight="561.0" prefWidth="582.0" wrapText="true" />
+        </VBox>
+    </HBox>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+</VBox>

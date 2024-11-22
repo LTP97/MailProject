@@ -2,15 +2,23 @@ package org.wifijava.mailproject.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.data.MessageContent;
 import org.wifijava.mailproject.exceptions.MailSendingException;
 import org.wifijava.mailproject.logic.AppData;
 import org.wifijava.mailproject.logic.MailService;
+
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WritingWindowController {
@@ -24,7 +32,32 @@ public class WritingWindowController {
     private TextField subjectField;
     @FXML
     private TextArea bodyArea;
+    @FXML
+    private HBox attachmentsDisplay;
 
+    private final List<String> attachments = new ArrayList<>();
+
+
+
+    @FXML
+    private void handleAddAttachment() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All Files", "*.*"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            Label attachmentLabel = new Label(selectedFile.getName());
+            Button removeButton = new Button("X");
+            styleButton(removeButton);
+            HBox attachmentBox = new HBox(5, attachmentLabel, removeButton);
+            attachmentsDisplay.getChildren().add(attachmentBox);
+            attachments.add(selectedFile.toString());
+            removeButton.setOnAction(e -> {
+                attachments.remove(selectedFile.toString());
+                attachmentsDisplay.getChildren().remove(attachmentBox);
+            });
+        }
+    }
 
 
     @FXML
@@ -35,8 +68,9 @@ public class WritingWindowController {
         String[] toRecipients = getRecipients(toFieldContainer);
         String[] ccRecipients = getRecipients(ccFieldContainer);
         String[] bccRecipients = getRecipients(bccFieldContainer);
+        String[] attachmentPaths = attachments.toArray(String[]::new);
         MessageContent messageContent = new MessageContent(
-                new String[0], subject, body, toRecipients, ccRecipients, bccRecipients
+                new String[0], subject, body, toRecipients, ccRecipients, bccRecipients,attachmentPaths
         );
 
         try {
@@ -83,12 +117,18 @@ public class WritingWindowController {
                 .toArray(String[]::new);
     }
 
+    private void styleButton(Button button){
+        button.setStyle(Constants.BUTTON_STYLE_CSS);
+    }
+
+
     private HBox createRecipientField(VBox container) {
         HBox recipientBox = new HBox(5);
         TextField recipientField = new TextField();
         recipientField.setPromptText("Enter email");
 
         Button removeButton = new Button("-");
+        styleButton(removeButton);
         removeButton.setOnAction(e -> container.getChildren().remove(recipientBox));
 
         recipientBox.getChildren().addAll(recipientField, removeButton);

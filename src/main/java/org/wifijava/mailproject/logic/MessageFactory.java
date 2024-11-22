@@ -1,9 +1,9 @@
 package org.wifijava.mailproject.logic;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
 import jakarta.mail.*;
-import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.*;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.data.MessageContent;
@@ -27,12 +27,11 @@ public class MessageFactory {
                 }
             });
             Message message = new MimeMessage(session);
-
             message.setFrom(new InternetAddress(mailAddress));
-
             addRecipientsByType(Message.RecipientType.TO,message,messageContent);
             addRecipientsByType(Message.RecipientType.CC,message,messageContent);
             addRecipientsByType(Message.RecipientType.BCC,message,messageContent);
+            message.setSubject(messageContent.subject());
 
             //todo: Header verarbeitung entfernen
             for (int i = 0; i < messageContent.headers().length; i += 2) {
@@ -41,8 +40,20 @@ public class MessageFactory {
                 message.setHeader(header1, header2);
             }
 
-            message.setSubject(messageContent.subject());
-            message.setText(messageContent.body());
+            MimeBodyPart messageBody = new MimeBodyPart();
+            messageBody.setText(messageContent.body());
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBody);
+
+            for(String fileUrl : messageContent.attachmentPaths()){
+                MimeBodyPart attachmentPart = new MimeBodyPart();
+                FileDataSource fds = new FileDataSource(fileUrl);
+                attachmentPart.setDataHandler(new DataHandler(fds));
+                attachmentPart.setFileName(fds.getName());
+                multipart.addBodyPart(attachmentPart);
+            }
+
+            message.setContent(multipart);
 
             return message;
         } catch (MessagingException e) {

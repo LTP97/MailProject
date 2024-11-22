@@ -36,7 +36,7 @@ public class HibernateUtil {
             e.printStackTrace();
             AlertService alertService = new AlertService();
             if(e.getMessage().contains("Unknown database")){
-                alertService.showErrorDialog(Constants.DB_NOT_CREATED);
+                alertService.showErrorDialog(Constants.DB_NOT_CREATED_ERROR);
                 System.exit(1337);
             }
             else {

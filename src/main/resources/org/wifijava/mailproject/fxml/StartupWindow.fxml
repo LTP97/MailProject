@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="center" prefHeight="200" prefWidth="200" spacing="10" style="-fx-background-color: D4E09B;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.wifijava.mailproject.controller.StartupWindowController">
+    <ProgressIndicator fx:id="progressIndicator" />
+    <Label fx:id="loadingLabel" text="Initializing application..." />
+</VBox>

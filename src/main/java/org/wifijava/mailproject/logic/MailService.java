@@ -27,4 +27,6 @@ public class MailService {
             throw new MailSendingException(errorMessage, e);
         }
     }
+
+
 }

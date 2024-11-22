@@ -7,5 +7,5 @@ public interface MailProvider {
 
     Properties getImapProperties();
 
-    String getInboxName();
+    String getStandardInboxName();
 }

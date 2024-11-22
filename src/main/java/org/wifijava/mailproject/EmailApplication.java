@@ -5,28 +5,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.SessionFactory;
+import org.wifijava.mailproject.logic.AppData;
 import org.wifijava.mailproject.logic.AppStartupService;
+import org.wifijava.mailproject.persistence.entity.MailAccountEntity;
+import org.wifijava.mailproject.persistence.repository.MailAccountRepository;
+import org.wifijava.mailproject.persistence.repository.MailMessageRepository;
 
 import java.io.IOException;
 
 public class EmailApplication extends Application {
 
     public static void main(String[] args) {
-//        SessionFactory sessionFactory = AppData.getInstance().getSessionFactory();
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//
-//            User user = new User();
-//            user.setPassword("test123");
-//            user.setMailAdress("test@mail.com");
-//            session.persist(user);
-//
-//            session.getTransaction().commit();
-//            System.out.println("Saved successfully");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        launch(args);
+        AppStartupService startupService = new AppStartupService();
+        startupService.prepApplication();
+
+        SessionFactory sessionFactory = AppData.getInstance().getSessionFactory();
+        MailAccountRepository mailAccountRepository = new MailAccountRepository(sessionFactory);
+        MailAccountEntity entity = mailAccountRepository.getFirstMailAccount();
+        System.out.println(entity.getMailAdress());
+
+        MailMessageRepository messageRepository = new MailMessageRepository(sessionFactory);
+        System.out.println(messageRepository.getMessagesByOwner(entity).get(1));
+//        launch(args);
     }
 
     @Override
@@ -35,12 +36,13 @@ public class EmailApplication extends Application {
         startupService.prepApplication();
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/wifijava/mailproject/fxml/WritingWindow.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/wifijava/mailproject/fxml/MainWindow.fxml"));
 
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root, 800, 600);
-        stage.setTitle("Writing Mail window test");
+        stage.setTitle("Write Mail");
         stage.setScene(scene);
         stage.show();
     }

@@ -26,7 +26,7 @@ public class GmxProvider implements MailProvider {
     }
 
     @Override
-    public String getInboxName() {
+    public String getStandardInboxName() {
         return "INBOX";
     }
 }
