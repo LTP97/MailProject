@@ -2,8 +2,8 @@ package org.wifijava.mailproject.persistence.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.Type;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
@@ -11,7 +11,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "mails")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class MailMessageEntity {
 

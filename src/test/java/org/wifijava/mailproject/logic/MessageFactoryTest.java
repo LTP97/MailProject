@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 class MessageFactoryTest {
 
 
-
     @Test
     void buildMessageTest() {
 //        String subject = "123";

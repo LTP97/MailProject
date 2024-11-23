@@ -7,7 +7,6 @@ import org.hibernate.cfg.Configuration;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.controller.AlertService;
 import org.wifijava.mailproject.data.DBConnection;
-import org.wifijava.mailproject.logic.storage.DBConnectionFactory;
 
 public class HibernateUtil {
 
@@ -35,11 +34,10 @@ public class HibernateUtil {
         } catch (HibernateException e) {
             e.printStackTrace();
             AlertService alertService = new AlertService();
-            if(e.getMessage().contains("Unknown database")){
+            if (e.getMessage().contains("Unknown database")) {
                 alertService.showErrorDialog(Constants.DB_NOT_CREATED_ERROR);
                 System.exit(1337);
-            }
-            else {
+            } else {
                 alertService.showErrorDialog(Constants.DB_CONNECTION_ERROR);
                 System.exit(1337);
             }

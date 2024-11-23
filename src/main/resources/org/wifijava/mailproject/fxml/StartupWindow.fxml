@@ -2,8 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="center" prefHeight="200" prefWidth="200" spacing="10" style="-fx-background-color: D4E09B;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.wifijava.mailproject.controller.StartupWindowController">
+<VBox alignment="center" prefHeight="200" prefWidth="200" spacing="10" style="-fx-background-color: D4E09B;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.StartupWindowController">
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" style = " -fx-fill: linear-gradient(to bottom,#F19C79, #000000);" text="Simple Mail">
+      <font>
+         <Font size="31.0" />
+      </font>
+   </Text>
     <ProgressIndicator fx:id="progressIndicator" />
     <Label fx:id="loadingLabel" text="Initializing application..." />
 </VBox>

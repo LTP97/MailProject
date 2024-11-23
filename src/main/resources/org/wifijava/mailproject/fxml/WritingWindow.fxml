@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox prefHeight="556.0" spacing="10" style="-fx-background-color: D4E09B;" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="556.0" spacing="10" style="-fx-background-color: D4E09B;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.wifijava.mailproject.controller.WritingWindowController">
 
     <HBox spacing="10">
         <VBox fx:id="toFieldContainer" spacing="5">
-            <Label text="To:" underline="true" />
+            <Label text="To:" underline="true"/>
             <HBox spacing="5">
-                <TextField promptText="Enter recipient email" />
-                <Button onAction="#handleAddRecipient" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+" />
+                <TextField promptText="Enter recipient email"/>
+                <Button onAction="#handleAddRecipient"
+                        style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+"/>
             </HBox>
         </VBox>
         <VBox fx:id="ccFieldContainer" spacing="5">
-            <Label text="CC:" underline="true" />
+            <Label text="CC:" underline="true"/>
             <HBox spacing="5">
-                <TextField promptText="Enter CC email" />
-                <Button onAction="#handleAddCC" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+" />
+                <TextField promptText="Enter CC email"/>
+                <Button onAction="#handleAddCC"
+                        style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+"/>
             </HBox>
         </VBox>
         <VBox fx:id="bccFieldContainer" spacing="5">
-            <Label text="BCC:" underline="true" />
+            <Label text="BCC:" underline="true"/>
             <HBox spacing="5">
-                <TextField promptText="Enter BCC email" />
-                <Button onAction="#handleAddBCC" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+" />
+                <TextField promptText="Enter BCC email"/>
+                <Button onAction="#handleAddBCC"
+                        style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="+"/>
             </HBox>
         </VBox>
     </HBox>
 
 
-    <Label text="Subject:" underline="true" />
-    <TextField fx:id="subjectField" promptText="Enter subject" />
+    <Label text="Subject:" underline="true"/>
+    <TextField fx:id="subjectField" promptText="Enter subject"/>
 
 
-    <Label text="Textbody:" underline="true" />
-    <TextArea fx:id="bodyArea" prefHeight="360" promptText="Enter mail body" wrapText="true" />
+    <Label text="Textbody:" underline="true"/>
+    <TextArea fx:id="bodyArea" prefHeight="360" promptText="Enter mail body" wrapText="true"/>
 
 
-    <Label text="Attachments:" underline="true" />
+    <Label text="Attachments:" underline="true"/>
     <HBox fx:id="attachmentsDisplay" spacing="5">
 
     </HBox>
 
 
     <HBox alignment="CENTER_RIGHT" spacing="50">
-        <Button onAction="#handleAddAttachment" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="Add Attachment" />
-        <Button onAction="#handleSendButtonPress" style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="Send" />
+        <Button onAction="#handleAddAttachment"
+                style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;"
+                text="Add Attachment"/>
+        <Button onAction="#handleSendButtonPress"
+                style="-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;" text="Send"/>
     </HBox>
 
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
 </VBox>

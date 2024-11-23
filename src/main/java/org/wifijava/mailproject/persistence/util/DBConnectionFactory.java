@@ -1,4 +1,4 @@
-package org.wifijava.mailproject.logic.storage;
+package org.wifijava.mailproject.persistence.util;
 
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.controller.AlertService;

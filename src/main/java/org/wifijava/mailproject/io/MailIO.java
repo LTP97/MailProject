@@ -29,11 +29,11 @@ public class MailIO {
                 .toArray(String[]::new);
     }
 
-    public static Message[] recieveMail(MailAccount mailAccount,String folderName) throws MessagingException {
+    public static Message[] recieveMail(MailAccount mailAccount, String folderName) throws MessagingException {
         Folder folder;
         try (Store store = connectToStore(mailAccount)) {
-            if(folderName == null || folderName.isEmpty()){
-                folderName = mailAccount.getMailProvider().getStandardInboxName();
+            if (folderName == null || folderName.isEmpty()) {
+                folderName = mailAccount.mailProvider().getStandardInboxName();
             }
             folder = store.getFolder(folderName);
         }
@@ -42,11 +42,11 @@ public class MailIO {
     }
 
     private static Store connectToStore(MailAccount mailAccount) throws MessagingException {
-        Properties properties = mailAccount.getMailProvider().getImapProperties();
-        Session session = Session.getDefaultInstance(properties,null);
+        Properties properties = mailAccount.mailProvider().getImapProperties();
+        Session session = Session.getDefaultInstance(properties, null);
         Store store = session.getStore(Constants.STORE_PROTOCOL);
         String host = properties.getProperty(Constants.HOST_TYPE);
-        store.connect(host, mailAccount.getMailAddress(),mailAccount.getPassword());
+        store.connect(host, mailAccount.mailAddress(), mailAccount.password());
         return store;
     }
 }

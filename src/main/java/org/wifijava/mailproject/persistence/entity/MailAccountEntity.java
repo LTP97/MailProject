@@ -1,14 +1,13 @@
 package org.wifijava.mailproject.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
 @Table(name = "mailaccounts")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class MailAccountEntity {
     @Id
@@ -16,7 +15,7 @@ public class MailAccountEntity {
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String mailAdress;
+    private String mailAddress;
 
     @Column(nullable = false)
     private String password;

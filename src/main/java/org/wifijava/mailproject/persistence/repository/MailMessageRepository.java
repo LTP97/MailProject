@@ -13,12 +13,17 @@ import java.util.List;
 public class MailMessageRepository {
     private final SessionFactory sessionFactory;
 
-
-
+    public void persistNewMessage(MailMessageEntity entity) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(entity);
+            session.getTransaction().commit();
+        }
+    }
 
     public List<MailMessageEntity> getMessagesByOwner(MailAccountEntity account) {
         List<MailMessageEntity> result;
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             String queryString = "from MailMessageEntity where belongsTo = :belongsToId";
             TypedQuery<MailMessageEntity> query = session.createQuery(queryString, MailMessageEntity.class);

@@ -13,7 +13,7 @@ public class MailService {
 
     public void buildAndSendMail(MessageContent messageContent, MailAccount currentAccount) throws MailSendingException {
         try {
-            Message message = MessageFactory.buildMessage(messageContent,currentAccount);
+            Message message = MessageFactory.buildMessage(messageContent, currentAccount);
             MailIO.sendMail(message);
 
         } catch (MessagingException e) {

@@ -16,12 +16,12 @@ import org.wifijava.mailproject.logic.AppData;
 import org.wifijava.mailproject.logic.MailService;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class WritingWindowController {
+    private final List<String> attachments = new ArrayList<>();
     @FXML
     private VBox toFieldContainer;
     @FXML
@@ -34,10 +34,6 @@ public class WritingWindowController {
     private TextArea bodyArea;
     @FXML
     private HBox attachmentsDisplay;
-
-    private final List<String> attachments = new ArrayList<>();
-
-
 
     @FXML
     private void handleAddAttachment() {
@@ -70,12 +66,12 @@ public class WritingWindowController {
         String[] bccRecipients = getRecipients(bccFieldContainer);
         String[] attachmentPaths = attachments.toArray(String[]::new);
         MessageContent messageContent = new MessageContent(
-                new String[0], subject, body, toRecipients, ccRecipients, bccRecipients,attachmentPaths
+                new String[0], subject, body, toRecipients, ccRecipients, bccRecipients, attachmentPaths
         );
 
         try {
             MailAccount currentAccount = AppData.getInstance().getCurrentAccount();
-            mailService.buildAndSendMail(messageContent,currentAccount);
+            mailService.buildAndSendMail(messageContent, currentAccount);
         } catch (MailSendingException e) {
             AlertService alertService = new AlertService();
             alertService.showErrorDialog(e.getMessage());
@@ -107,7 +103,7 @@ public class WritingWindowController {
         bccFieldContainer.getChildren().add(newBCCBox);
     }
 
-    private String[] getRecipients(VBox container){
+    private String[] getRecipients(VBox container) {
         return container.getChildren().stream()
                 .filter(node -> node instanceof HBox)
                 .flatMap(node -> ((HBox) node).getChildren().stream())
@@ -117,7 +113,7 @@ public class WritingWindowController {
                 .toArray(String[]::new);
     }
 
-    private void styleButton(Button button){
+    private void styleButton(Button button) {
         button.setStyle(Constants.BUTTON_STYLE_CSS);
     }
 

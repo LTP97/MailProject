@@ -23,7 +23,7 @@ public class EmailApplication extends Application {
         SessionFactory sessionFactory = AppData.getInstance().getSessionFactory();
         MailAccountRepository mailAccountRepository = new MailAccountRepository(sessionFactory);
         MailAccountEntity entity = mailAccountRepository.getFirstMailAccount();
-        System.out.println(entity.getMailAdress());
+        System.out.println(entity.getMailAddress());
 
         MailMessageRepository messageRepository = new MailMessageRepository(sessionFactory);
         System.out.println(messageRepository.getMessagesByOwner(entity).get(1));
@@ -34,7 +34,6 @@ public class EmailApplication extends Application {
     public void start(Stage stage) throws IOException {
         AppStartupService startupService = new AppStartupService();
         startupService.prepApplication();
-
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/wifijava/mailproject/fxml/MainWindow.fxml"));

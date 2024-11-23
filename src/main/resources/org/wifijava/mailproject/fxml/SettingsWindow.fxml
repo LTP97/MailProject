@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            fx:controller="org.wifijava.mailproject.controller.SettingsWindowController"
+            prefHeight="600.0" prefWidth="800.0">
+    <TabPane prefHeight="580.0" prefWidth="780.0" layoutX="10.0" layoutY="10.0">
+        <!-- Manage Mail Accounts Tab -->
+        <Tab text="Manage Mail Accounts">
+            <AnchorPane>
+                <VBox spacing="10" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.rightAnchor="10.0">
+                    <Label text="Mail Accounts"/>
+                    <ListView fx:id="accountsList" prefHeight="300.0"/>
+                    <HBox spacing="10">
+                        <Button text="Add Account" onAction="#handleAddAccount"/>
+                        <Button text="Remove Account" onAction="#handleRemoveAccount"/>
+                        <Button text="Change Password" onAction="#handleChangePassword"/>
+                    </HBox>
+                    <HBox spacing="10">
+                        <Button text="Set Active Account" onAction="#handleSetActiveAccount"/>
+                    </HBox>
+                </VBox>
+            </AnchorPane>
+        </Tab>
+
+        <!-- Manage Mail Signatures Tab -->
+        <Tab text="Manage Mail Signatures">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <VBox spacing="10" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                              AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <Label text="Mail Signatures"/>
+                                <TextArea fx:id="signatureArea" promptText="Enter your signature here..."/>
+                                <Button text="Save Signature" onAction="#handleSaveSignature"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+
+        <!-- Manage Folders Tab -->
+        <Tab text="Manage Folders">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <VBox spacing="10" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                              AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <Label text="Folder Structure"/>
+                                <ListView fx:id="foldersList" prefHeight="300.0"/>
+                                <HBox spacing="10">
+                                    <children>
+                                        <Button text="Add Folder" onAction="#handleAddFolder"/>
+                                        <Button text="Remove Folder" onAction="#handleRemoveFolder"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </TabPane>
+
+    <!-- Exit Button at the bottom right -->
+    <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <Button text="Exit Settings" onAction="#handleExitSettings"/>
+    </HBox>
+
+</AnchorPane>

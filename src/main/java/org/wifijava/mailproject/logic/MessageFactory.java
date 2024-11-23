@@ -13,12 +13,12 @@ import java.util.Properties;
 
 public class MessageFactory {
 
-    public static Message buildMessage(MessageContent messageContent,MailAccount currentAccount) throws MessagingException {
+    public static Message buildMessage(MessageContent messageContent, MailAccount currentAccount) throws MessagingException {
         try {
 
-            Properties properties = currentAccount.getMailProvider().getSmtpProperties();
-            String mailAddress = currentAccount.getMailAddress();
-            String password = currentAccount.getPassword();
+            Properties properties = currentAccount.mailProvider().getSmtpProperties();
+            String mailAddress = currentAccount.mailAddress();
+            String password = currentAccount.password();
 
             Session session = Session.getInstance(properties, new Authenticator() {
                 @Override
@@ -28,9 +28,9 @@ public class MessageFactory {
             });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(mailAddress));
-            addRecipientsByType(Message.RecipientType.TO,message,messageContent);
-            addRecipientsByType(Message.RecipientType.CC,message,messageContent);
-            addRecipientsByType(Message.RecipientType.BCC,message,messageContent);
+            addRecipientsByType(Message.RecipientType.TO, message, messageContent);
+            addRecipientsByType(Message.RecipientType.CC, message, messageContent);
+            addRecipientsByType(Message.RecipientType.BCC, message, messageContent);
             message.setSubject(messageContent.subject());
 
             //todo: Header verarbeitung entfernen
@@ -45,7 +45,7 @@ public class MessageFactory {
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBody);
 
-            for(String fileUrl : messageContent.attachmentPaths()){
+            for (String fileUrl : messageContent.attachmentPaths()) {
                 MimeBodyPart attachmentPart = new MimeBodyPart();
                 FileDataSource fds = new FileDataSource(fileUrl);
                 attachmentPart.setDataHandler(new DataHandler(fds));

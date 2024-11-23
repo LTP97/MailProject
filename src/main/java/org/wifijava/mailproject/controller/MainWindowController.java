@@ -1,12 +1,10 @@
 package org.wifijava.mailproject.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.wifijava.mailproject.logic.AppData;
 
@@ -15,7 +13,7 @@ public class MainWindowController {
     @FXML
     public Button attachmentButton;
     @FXML
-    private Label accountDisplay = new Label(AppData.getInstance().getCurrentAccount().getMailAddress());
+    private Label accountDisplay = new Label(AppData.getInstance().getCurrentAccount().mailAddress());
     @FXML
     private ListView<String> directoryList;
     @FXML
@@ -23,7 +21,7 @@ public class MainWindowController {
     @FXML
     private TextArea emailContent;
 
-    public void initialize(){
+    public void initialize() {
 
     }
 
@@ -42,7 +40,7 @@ public class MainWindowController {
     }
 
     @FXML
-    public void handleAnswerButtonPress(){
+    public void handleAnswerButtonPress() {
 
     }
 
@@ -61,7 +59,7 @@ public class MainWindowController {
 
     }
 
-    private void buildMailList(){
+    private void buildMailList() {
 
     }
 }
