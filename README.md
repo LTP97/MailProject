@@ -16,5 +16,5 @@ Currently only supports GMX-Accounts - wrong account type entry breaks the app.
 To run: set up resources.config.properties.
 
 Future improvements:
-Improve synchronization performance(change message fetching approach), add custom mail provider entry, add gmail authentication
+Improve synchronization performance(change message fetching approach), add custom mail provider entry, add gmail authentication, 
 Mail-Signatures, display and edit html message content, delete function, trashbin, individual folder/label structure
