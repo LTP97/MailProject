@@ -13,7 +13,7 @@ Attachments and/or lots of mails at once can slow down the synchronization a lot
 So please be patient when using accounts with lots of mails in their inbox.
 
 Currently only supports GMX-Accounts - wrong account type entry breaks the app.
-To run set up resources.config.properties.
+To run: set up resources.config.properties.
 
 Future improvements:
 Improve synchronization performance(change message fetching approach), add custom mail provider entry, add gmail authentication
