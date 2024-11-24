@@ -1,15 +1,11 @@
 package org.wifijava.mailproject.logic;
 
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Data;
 import org.hibernate.SessionFactory;
 import org.wifijava.mailproject.constants.Constants;
-import org.wifijava.mailproject.constants.TestConstants;
 import org.wifijava.mailproject.controller.AlertService;
 import org.wifijava.mailproject.data.MailAccount;
-import org.wifijava.mailproject.io.provider.GmxProvider;
-import org.wifijava.mailproject.persistence.entity.MailAccountEntity;
 import org.wifijava.mailproject.persistence.util.HibernateUtil;
 
 
@@ -28,9 +24,6 @@ public class AppData {
             alertService.showErrorDialog(Constants.UNKNOWN_ERROR);
             System.exit(1);
         }
-
-        //todo: get saved account(s) from database or open login window before starting application
-        this.currentAccount = new MailAccount(TestConstants.TESTMAIL, new GmxProvider(), TestConstants.TESTPASSWORD);
 
     }
 

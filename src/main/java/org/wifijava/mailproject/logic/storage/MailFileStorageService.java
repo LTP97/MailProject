@@ -70,7 +70,7 @@ public class MailFileStorageService {
             };
             new Thread(task).start();
             task.setOnSucceeded(event -> {
-                System.out.println("Attachments saved successfully.");
+                System.out.println("Attachment(s) saved successfully.");
             });
             task.setOnFailed(event -> {
                 System.out.println("Failed to save attachments.");

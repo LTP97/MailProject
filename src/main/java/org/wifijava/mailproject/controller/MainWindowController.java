@@ -53,7 +53,7 @@ public class MainWindowController {
     public void initialize() {
         accountDisplay.setText(AppData.getInstance().getCurrentAccount().mailAddress());
         MailFileStorageService fileStorageService = new MailFileStorageService();
-        this.syncService = new SyncService(messageRepository, fileStorageService, messageMapper, accountMapper);
+        this.syncService = new SyncService(messageRepository, fileStorageService, messageMapper);
         buildDirectoryList();
         directoryList.getSelectionModel().select(0);
         buildMailList(directoryList.getSelectionModel().getSelectedItem());

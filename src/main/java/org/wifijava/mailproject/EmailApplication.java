@@ -1,5 +1,6 @@
 package org.wifijava.mailproject;
 
+import jakarta.mail.MessagingException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,12 +11,14 @@ import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.controller.SceneSwitcher;
 import org.wifijava.mailproject.controller.SettingsWindowController;
 import org.wifijava.mailproject.controller.StartupWindowController;
+import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.logic.AppData;
 import org.wifijava.mailproject.logic.AppStartupService;
 import org.wifijava.mailproject.logic.storage.MailAccountMapper;
 import org.wifijava.mailproject.logic.storage.MailFileStorageService;
 import org.wifijava.mailproject.logic.storage.MailMessageMapper;
 import org.wifijava.mailproject.logic.storage.SyncService;
+import org.wifijava.mailproject.persistence.entity.MailAccountEntity;
 import org.wifijava.mailproject.persistence.repository.MailAccountRepository;
 import org.wifijava.mailproject.persistence.repository.MailMessageRepository;
 
@@ -38,12 +41,13 @@ public class EmailApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        if(accountRepository.getFirstMailAccount() == null){
+        MailAccount currentAccount = AppData.getInstance().getCurrentAccount();
+        if (currentAccount == null) {
             SceneSwitcher.switchToScene(Constants.SETTINGS_WINDOW);
-        }
-        else{
+        } else {
             SceneSwitcher.switchToScene(Constants.MAIN_WINDOW);
         }
+
 
     }
 
@@ -51,8 +55,8 @@ public class EmailApplication extends Application {
         MailMessageRepository messageRepository = new MailMessageRepository(AppData.getInstance().getSessionFactory());
         MailAccountRepository accountRepository = new MailAccountRepository(AppData.getInstance().getSessionFactory());
         MailMessageMapper messageMapper = new MailMessageMapper(accountRepository);
-        MailAccountMapper accountMapper = new MailAccountMapper();
-        return new AppStartupService(new SyncService(messageRepository,new MailFileStorageService(),messageMapper,accountMapper));
+        MailFileStorageService fileStorageService = new MailFileStorageService();
+        return new AppStartupService(new SyncService(messageRepository, fileStorageService, messageMapper));
     }
 
 

@@ -4,6 +4,7 @@ import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import javafx.concurrent.Task;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.wifijava.mailproject.constants.Constants;
 import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.io.MailIO;
@@ -16,19 +17,13 @@ import org.wifijava.mailproject.persistence.repository.MailMessageRepository;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Data
 @AllArgsConstructor
 public class SyncService {
     private final MailMessageRepository messageRepository;
     private final MailAccountRepository accountRepository = new MailAccountRepository(AppData.getInstance().getSessionFactory());
     private final MailFileStorageService fileStorageService;
     private final MailMessageMapper messageMapper;
-    private final MailAccountMapper accountMapper;
-
-
-    public void updateAccountStorage() {
-
-    }
 
 
     public void updateMailStorage() throws MessagingException {

@@ -33,12 +33,12 @@ public class MessageFactory {
             addRecipientsByType(Message.RecipientType.BCC, message, messageContent);
             message.setSubject(messageContent.subject());
 
-            //todo: Header verarbeitung entfernen
-            for (int i = 0; i < messageContent.headers().length; i += 2) {
-                String header1 = messageContent.headers()[i];
-                String header2 = messageContent.headers()[i + 1];
-                message.setHeader(header1, header2);
-            }
+//            //todo: Header verarbeitung entfernen/verbesssern
+//            for (int i = 0; i < messageContent.headers().length; i += 2) {
+//                String header1 = messageContent.headers()[i];
+//                String header2 = messageContent.headers()[i + 1];
+//                message.setHeader(header1, header2);
+//            }
 
             MimeBodyPart messageBody = new MimeBodyPart();
             messageBody.setText(messageContent.body());

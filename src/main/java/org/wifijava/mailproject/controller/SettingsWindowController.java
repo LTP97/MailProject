@@ -132,10 +132,11 @@ public class SettingsWindowController {
     @FXML
     private void handleExitButtonPress() {
         MailAccount currentAccount = AppData.getInstance().getCurrentAccount();
-        boolean validAccountSelected = accountsList.getItems().contains(currentAccount.mailAddress());
-        if(!validAccountSelected){
+        if (currentAccount == null) {
+            new AlertService().showErrorDialog("Please create at least one account before exiting the settings window");
+        } else if (!accountsList.getItems().contains(currentAccount.mailAddress())) {
             new AlertService().showErrorDialog("Please select or create an account before exiting the settings window");
-        }else {
+        } else {
             SceneSwitcher.switchToScene(Constants.MAIN_WINDOW);
         }
     }

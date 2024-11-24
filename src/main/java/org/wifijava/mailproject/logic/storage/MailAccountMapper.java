@@ -16,7 +16,7 @@ public class MailAccountMapper {
     }
 
     public MailAccount getInstanceFromEntity(MailAccountEntity entity){
-        //todo: make mailaccountprovider selection dynamic
+        //todo: make more providers possible
         return new MailAccount(entity.getMailAddress(), new GmxProvider(), entity.getPassword());
     }
 
