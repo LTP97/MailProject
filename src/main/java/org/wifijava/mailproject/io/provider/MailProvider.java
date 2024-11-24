@@ -8,4 +8,8 @@ public interface MailProvider {
     Properties getImapProperties();
 
     String getStandardInboxName();
+
+    String getStandardOutboxName();
+
+    String getProviderKeyword();
 }

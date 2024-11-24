@@ -1,5 +1,7 @@
 package org.wifijava.mailproject.controller;
 
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,15 +15,20 @@ import org.wifijava.mailproject.data.MailAccount;
 import org.wifijava.mailproject.data.MessageContent;
 import org.wifijava.mailproject.exceptions.MailSendingException;
 import org.wifijava.mailproject.logic.AppData;
-import org.wifijava.mailproject.logic.MailService;
+import org.wifijava.mailproject.logic.MailContentUtil;
+import org.wifijava.mailproject.logic.outgoing.MailOutService;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class WritingWindowController {
     private final List<String> attachments = new ArrayList<>();
+
+    @FXML
+    public TextField firstRecipientField;
     @FXML
     private VBox toFieldContainer;
     @FXML
@@ -34,6 +41,52 @@ public class WritingWindowController {
     private TextArea bodyArea;
     @FXML
     private HBox attachmentsDisplay;
+
+
+    public void initData(String passedMessageType, Message passedMessage) {
+        String fillString;
+        if (passedMessageType.equals(Constants.MESSAGE_TYPE_ANSWER)) {
+            firstRecipientField.setText(MailContentUtil.getFrom(passedMessage));
+            fillString = "AW: ";
+        }else{
+            fillString = "FW: ";
+        }
+            String fillText;
+            try {
+                fillText = buildAnswerText(passedMessage);
+                if (passedMessage.getSubject() != null)
+                    subjectField.setText(fillString + passedMessage.getSubject());
+                else subjectField.setText(fillString);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+            bodyArea.setText(fillText);
+
+
+
+    }
+
+    private String buildAnswerText(Message message) throws MessagingException {
+        StringBuilder sb = new StringBuilder();
+        String from = MailContentUtil.getFrom(message);
+        sb.append("\n\n\n-----------------------------------------------\n");
+        sb.append("Message sent at: " + message.getSentDate());
+        sb.append("\nFrom:    " + from);
+        sb.append("\n");
+        if (!message.getSubject().isEmpty()) {
+            sb.append("Subject: " + message.getSubject());
+            sb.append("\n");
+        }
+        sb.append("\n");
+        sb.append("Content:\n");
+        try {
+            sb.append(MailContentUtil.extractTextFromMessage(message));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return sb.toString();
+    }
+
 
     @FXML
     private void handleAddAttachment() {
@@ -58,7 +111,7 @@ public class WritingWindowController {
 
     @FXML
     private void handleSendButtonPress() {
-        MailService mailService = new MailService();
+        MailOutService mailOutService = new MailOutService();
         String subject = subjectField.getText();
         String body = bodyArea.getText();
         String[] toRecipients = getRecipients(toFieldContainer);
@@ -71,18 +124,12 @@ public class WritingWindowController {
 
         try {
             MailAccount currentAccount = AppData.getInstance().getCurrentAccount();
-            mailService.buildAndSendMail(messageContent, currentAccount);
+            mailOutService.buildAndSendMail(messageContent, currentAccount);
         } catch (MailSendingException e) {
             AlertService alertService = new AlertService();
             alertService.showErrorDialog(e.getMessage());
         }
-
-        //todo remove debugging output
-        System.out.println("Sending email to: " + String.join(", ", toRecipients));
-        System.out.println("CC: " + String.join(", ", ccRecipients));
-        System.out.println("BCC: " + String.join(", ", bccRecipients));
-        System.out.println("Subject: " + subject);
-        System.out.println("Body: " + body);
+        SceneSwitcher.switchToScene(Constants.MAIN_WINDOW);
     }
 
     @FXML
@@ -129,6 +176,11 @@ public class WritingWindowController {
 
         recipientBox.getChildren().addAll(recipientField, removeButton);
         return recipientBox;
+    }
+
+    @FXML
+    public void handleExitButtonPress() {
+        SceneSwitcher.switchToScene(Constants.MAIN_WINDOW);
     }
 }
 

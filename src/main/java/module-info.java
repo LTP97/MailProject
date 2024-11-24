@@ -8,6 +8,8 @@ module org.wifijava.mailproject {
     requires mysql.connector.j;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires org.jsoup;
+    requires java.desktop;
 
     exports org.wifijava.mailproject.persistence.entity;
     opens org.wifijava.mailproject.persistence.entity to org.hibernate.orm.core;

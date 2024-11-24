@@ -13,7 +13,7 @@ import java.util.List;
 public class MailMessageRepository {
     private final SessionFactory sessionFactory;
 
-    public void persistNewMessage(MailMessageEntity entity) {
+    public void persistMessage(MailMessageEntity entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(entity);
@@ -21,16 +21,38 @@ public class MailMessageRepository {
         }
     }
 
-    public List<MailMessageEntity> getMessagesByOwner(MailAccountEntity account) {
+    public MailMessageEntity getMessageById(long id){
+        MailMessageEntity result;
+        try (Session session = sessionFactory.openSession()) {
+            result = session.get(MailMessageEntity.class, id);
+        }
+        return result;
+    }
+
+    public MailMessageEntity[] getMessagesByOwnerAndLabel(MailAccountEntity account, String label) {
         List<MailMessageEntity> result;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            String queryString = "from MailMessageEntity where belongsTo = :belongsToId";
+            String queryString = "from MailMessageEntity where belongsTo = :belongsToId and label = :label order by filePath desc";
+            TypedQuery<MailMessageEntity> query = session.createQuery(queryString, MailMessageEntity.class);
+            query.setParameter("belongsToId", account);
+            query.setParameter("label",label);
+            result = query.getResultList();
+            session.getTransaction().commit();
+        }
+        return result.toArray(MailMessageEntity[]::new);
+    }
+
+    public MailMessageEntity[] getMessagesByOwner(MailAccountEntity account) {
+        List<MailMessageEntity> result;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            String queryString = "from MailMessageEntity where belongsTo = :belongsToId order by filePath desc";
             TypedQuery<MailMessageEntity> query = session.createQuery(queryString, MailMessageEntity.class);
             query.setParameter("belongsToId", account);
             result = query.getResultList();
             session.getTransaction().commit();
         }
-        return result;
+        return result.toArray(MailMessageEntity[]::new);
     }
 }

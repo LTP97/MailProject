@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
 
 
 @Entity
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class MailMessageEntity {
 
     @Id
-    private UUID uuid;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "belongs_to", nullable = false)

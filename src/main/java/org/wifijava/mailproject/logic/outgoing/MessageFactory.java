@@ -1,4 +1,4 @@
-package org.wifijava.mailproject.logic;
+package org.wifijava.mailproject.logic.outgoing;
 
 import jakarta.activation.DataHandler;
 import jakarta.activation.FileDataSource;

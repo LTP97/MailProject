@@ -5,6 +5,17 @@ public interface Constants {
     String STORE_PROTOCOL = "imap";
     String HOST_TYPE = "mail.imap.host";
 
+    String MAIN_WINDOW = "/org/wifijava/mailproject/fxml/MainWindow.fxml";
+    String SETTINGS_WINDOW = "/org/wifijava/mailproject/fxml/SettingsWindow.fxml";
+    String STARTUP_WINDOW = "/org/wifijava/mailproject/fxml/StartupWindow.fxml";
+    String WRITING_WINDOW = "/org/wifijava/mailproject/fxml/WritingWindow.fxml";
+
+    String MESSAGE_TYPE_FORWARD = "forward";
+    String MESSAGE_TYPE_ANSWER = "answer";
+
+    String INBOX_LABEL = "inbox";
+    String OUTBOX_LABEL = "sent";
+
     String BUTTON_STYLE_CSS = "-fx-background-color: F19C79; -fx-border-color: black; -fx-border-width: 1px;";
 
     String BUILD_MESSAGE_ERROR = "Could not build message";

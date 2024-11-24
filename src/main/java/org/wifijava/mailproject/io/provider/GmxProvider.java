@@ -29,4 +29,18 @@ public class GmxProvider implements MailProvider {
     public String getStandardInboxName() {
         return "INBOX";
     }
+
+    @Override
+    public String getStandardOutboxName() {
+        return "Gesendet";
+    }
+
+    @Override
+    public String getProviderKeyword() {
+        return "gmx";
+    }
+
+    public String getSpamFolderName(){
+        return "Spamverdacht";
+    }
 }

@@ -1,4 +1,4 @@
-package org.wifijava.mailproject.logic;
+package org.wifijava.mailproject.logic.outgoing;
 
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -8,7 +8,7 @@ import org.wifijava.mailproject.data.MessageContent;
 import org.wifijava.mailproject.exceptions.MailSendingException;
 import org.wifijava.mailproject.io.MailIO;
 
-public class MailService {
+public class MailOutService {
 
 
     public void buildAndSendMail(MessageContent messageContent, MailAccount currentAccount) throws MailSendingException {
